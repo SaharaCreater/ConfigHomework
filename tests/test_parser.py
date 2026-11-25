@@ -4,6 +4,11 @@ from src.parser import ConfigSyntaxError, parse_config
 from src.toml_serializer import to_toml
 
 
+EXPECTED_INT_LIKE = 42.0
+EXPECTED_PI = 3.14
+EXPECTED_OFFSET = 15.5
+
+
 def test_comments_and_numbers() -> None:
     src = """
     C Однострочный комментарий
@@ -15,7 +20,7 @@ def test_comments_and_numbers() -> None:
     def pi_val := 3.14
     """
     res = parse_config(src)
-    assert res == {"int_like": 42.0, "pi_val": 3.14}
+    assert res == {"int_like": EXPECTED_INT_LIKE, "pi_val": EXPECTED_PI}
 
 
 def test_strings_and_nested_arrays() -> None:
@@ -37,7 +42,7 @@ def test_const_expressions_add_and_sort() -> None:
     def nested_expr := |sort([ |base + 2.|, 1., 5. ])|
     """
     res = parse_config(src)
-    assert res["offset"] == 15.5
+    assert res["offset"] == EXPECTED_OFFSET
     assert res["sorted_arr"] == [10.0, 20.0, 30.0]
     assert res["nested_expr"] == [1.0, 5.0, 12.0]
 

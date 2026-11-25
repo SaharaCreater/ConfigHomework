@@ -19,7 +19,6 @@ class ConfigTransformer(Transformer):
         self.root_items: list[Any] = []
 
     def number(self, token: Any) -> float:
-        """Преобразование токена числа в float."""
         return float(str(token))
 
     def string(self, token: Any) -> str:
@@ -44,7 +43,6 @@ class ConfigTransformer(Transformer):
             ) from exc
 
     def sort_func(self, target: Any) -> list[Any]:
-        """Вычисление встроенной функции sort()."""
         if not isinstance(target, list):
             raise ConfigSyntaxError("Функция sort() ожидает массив")
         try:
